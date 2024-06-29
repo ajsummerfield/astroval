@@ -1,0 +1,33 @@
+{
+  "name": "astroval",
+  "version": "1.0.0",
+  "description": "A validation library for the Astro framework.",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "files": [
+    "src",
+    "index.ts"
+  ],
+  "types": "./src/types/index.d.ts",
+  "scripts": {
+    "dev": "astro dev --root demo"
+  },
+  "dependencies": { "hello-astro": "^1.3.0" },
+  "devDependencies": {
+    "astro": "^4.11.3",
+    "typescript": "^5.5.2"
+  },
+  "keywords": [
+    "astro",
+    "validation",
+    "astroval"
+  ],
+  "author": "Andy Summerfield",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ajsummerfield/astroval/issues"
+  },
+  "homepage": "https://github.com/ajsummerfield/astroval#readme"
+}

@@ -1,0 +1,11 @@
+---
+interface Props {
+  name: string;
+  value: string;
+  isRequired?: boolean;
+}
+
+const { name, value, isRequired } = Astro.props;
+---
+
+<input type="text" name={name} value={value} />
