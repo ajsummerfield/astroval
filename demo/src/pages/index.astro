@@ -1,10 +1,21 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { TextInput } from '~/src';
 ---
 
 <Layout title="Astroval Demo">
 	<Fragment slot="main">
-    
+    <form>
+      <div>
+        <TextInput name="test" required={true} />
+      </div>
+      <div>
+        <TextInput name="test" required={false} />
+      </div>
+      <div>
+        <button type="submit">Submit</button>
+      </div>
+    </form>
   </Fragment>
 </Layout>
 
@@ -14,8 +25,5 @@ import Layout from '../layouts/Layout.astro';
 		padding: 1rem;
 		width: 800px;
 		max-width: calc(100% - 2rem);
-		color: white;
-		font-size: 20px;
-		line-height: 1.6;
 	}
 </style>
