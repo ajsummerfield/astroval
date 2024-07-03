@@ -1,11 +1,45 @@
 ---
 interface Props {
   name: string;
-  value: string;
-  isRequired?: boolean;
+  value?: string;
+  required?: boolean;
+  requiredErrorMessage?: string;
 }
 
-const { name, value, isRequired } = Astro.props;
+const { name, value, required = false, requiredErrorMessage } = Astro.props;
+const attributes = {
+  required: required
+};
 ---
+<style>
+  input + p,
+  p:empty {
+    display: none;
+  }
 
-<input type="text" name={name} value={value} />
+  input:invalid + p {
+    display: block;
+  }
+</style>
+
+<text-input data-required-error={requiredErrorMessage}>
+  <input type="text" name={name} value={value} {...attributes} />
+  <p></p>
+</text-input>
+
+<script>
+  import InputValidator from "../modules/InputValidator";
+  import type { ValidationResult } from "../types/ValidationResult";
+
+  class TextInput extends InputValidator {
+    public validate(): ValidationResult {
+      const isValid = this.element.validity.valid;
+      return {
+        isValid,
+        errorMessage: this.dataset.requiredError || this.element.validationMessage
+      };
+    }
+  }
+
+  customElements.define('text-input', TextInput);
+</script>
