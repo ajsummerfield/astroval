@@ -1,1 +1,1 @@
-export { default as TextInput } from './components/TextInput.astro';
+export { TextInput } from './components';
