@@ -5,7 +5,7 @@ abstract class Validator<T extends HTMLElement> extends HTMLElement {
   private errorElement: Element;
   private eventTypes: string[];
 
-  constructor(eventTypes: string[] = ['blur', 'keyup', 'change']) {
+  constructor(eventTypes: string[] = ['invalid', 'blur', 'input']) {
     super();
     this.element = this.querySelector<T>('input');
     this.errorElement = this.element.nextElementSibling;
@@ -23,6 +23,7 @@ abstract class Validator<T extends HTMLElement> extends HTMLElement {
 
   private handleValidation = (): void => {
     const validationResult = this.validate();
+    this.element.setAttribute("aria-invalid", `${validationResult.isValid}`);
     const errorContent = validationResult.isValid ? null : validationResult.errorMessage;
     this.errorElement.textContent = errorContent;
   }
