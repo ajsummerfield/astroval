@@ -1,0 +1,32 @@
+---
+const props = Astro.props;
+---
+
+<astroval-form>
+  <form {...props}>
+    <slot></slot>
+  </form>
+</astroval-form>
+
+<script>
+  class AstrovalForm extends HTMLElement {
+    private element: HTMLFormElement;
+
+    constructor() {
+      super();
+      this.element = this.querySelector('form');
+      this.addListeners();
+    }
+
+    private addListeners = ():void => {
+      this.element.setAttribute('novalidate', '');
+      this.element.addEventListener('submit', (event: Event) => {
+        if (!this.element.checkValidity()) {
+          event.preventDefault();
+        }
+      })
+    };
+  }
+
+  customElements.define('astroval-form', AstrovalForm);
+</script>
