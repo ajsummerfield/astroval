@@ -22,7 +22,7 @@ const attributes = {
   }
 </style>
 
-<text-input data-required-error={requiredErrorMessage}>
+<text-input data-required-error={requiredErrorMessage || `Please enter ${name}.`}>
   <input type="text" name={name} value={value} {...attributes} />
   <span class="error"></span>
 </text-input>
@@ -41,5 +41,7 @@ const attributes = {
     }
   }
 
-  customElements.define('text-input', TextInput);
+  if (!customElements.get('text-input')) {
+    customElements.define('text-input', TextInput);
+  }
 </script>
