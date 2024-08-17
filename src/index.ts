@@ -1,1 +1,3 @@
-export { TextInput } from './components';
+export { AstrovalForm, TextInput } from './components';
+
+export { Astroval } from './modules';

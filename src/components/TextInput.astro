@@ -12,19 +12,19 @@ const attributes = {
 };
 ---
 <style>
-  input + p,
-  p:empty {
+  input + span,
+  span:empty {
     display: none;
   }
 
-  input:invalid + p {
+  input:invalid + span:not(:empty) {
     display: block;
   }
 </style>
 
-<text-input data-required-error={requiredErrorMessage}>
+<text-input data-required-error={requiredErrorMessage || `Please enter ${name}.`}>
   <input type="text" name={name} value={value} {...attributes} />
-  <p></p>
+  <span class="error"></span>
 </text-input>
 
 <script>
@@ -41,5 +41,7 @@ const attributes = {
     }
   }
 
-  customElements.define('text-input', TextInput);
+  if (!customElements.get('text-input')) {
+    customElements.define('text-input', TextInput);
+  }
 </script>

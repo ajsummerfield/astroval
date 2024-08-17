@@ -1,23 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { TextInput } from '~/src';
+import { AstrovalForm } from '~/src';
 ---
-
-<Layout title="Astroval Demo">
-	<Fragment slot="main">
-    <form>
-      <div>
-        <TextInput name="test" required={true} />
-      </div>
-      <div>
-        <TextInput name="test" required={false} />
-      </div>
-      <div>
-        <button type="submit">Submit</button>
-      </div>
-    </form>
-  </Fragment>
-</Layout>
 
 <style>
 	main {
@@ -27,3 +12,42 @@ import { TextInput } from '~/src';
 		max-width: calc(100% - 2rem);
 	}
 </style>
+
+<Layout title="Astroval Demo">
+	<Fragment slot="main">
+    <AstrovalForm id="my-form">
+      <div>
+        <label for="name">Name</label>
+        <TextInput name="name" required={true} requiredErrorMessage='Please enter your name.' />
+      </div>
+      <div>
+        <label for="role">Role</label>
+        <TextInput name="role" />
+      </div>
+      <div>
+        <button type="submit">Submit</button>
+      </div>
+    </AstrovalForm>
+  </Fragment>
+</Layout>
+
+<script>
+  const formEl = document.querySelector<HTMLFormElement>('#my-form');
+
+  formEl?.addEventListener('invalidated', () => {
+    console.log('Invalidated !');
+  });
+
+  formEl?.addEventListener('validated', async () => {
+    console.log('Validated !');
+    // const formData = new FormData(formEl);
+    // const response = await fetch("/api/form", {
+    //   method: "POST",
+    //   body: formData,
+    // });
+
+    // const data = await response.json();
+
+    // alert(data.message);
+  });
+</script>

@@ -1,2 +1,3 @@
+import AstrovalForm from './AstrovalForm.astro';
 import TextInput from './TextInput.astro';
-export { TextInput };
+export { AstrovalForm, TextInput };
