@@ -8,13 +8,20 @@ class Astroval {
   private formFieldElements: Element[];
   private options: AstrovalOptions;
 
-  constructor(formElement: HTMLFormElement | null, options: AstrovalOptions) {
+  static test = () => {};
+
+  constructor(formElement: HTMLFormElement | null, options?: AstrovalOptions) {
     if (!formElement) {
       throw new Error('Specified formElement does not exist!');
     }
 
+    const defaultOptions: AstrovalOptions = {
+      onValidated: () => {},
+      onInvalidated: () => {},
+    };
+
     this.formElement = formElement;
-    this.options = options;
+    this.options = options ?? defaultOptions;
     this.formFieldElements = Array.from(this.formElement.elements);
     this.addListeners();
   }
