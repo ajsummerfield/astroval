@@ -9,24 +9,56 @@ const props = Astro.props;
 </astroval-form>
 
 <script>
+  import Astroval from "../modules/Astroval";
+
   class AstrovalForm extends HTMLElement {
     private element: HTMLFormElement;
 
     constructor() {
       super();
+    }
+
+    connectedCallback() {
+      this.initialise();
+    }
+
+    private initialise() {
       this.element = this.querySelector('form');
+      // TODO: Decide what this should be/if needed
+      // this.element.astroval = new Astroval(this.element);
       this.addListeners();
     }
 
-    private addListeners = ():void => {
+    private publishEvent = (eventName: string) : void => {
+      const event = new Event(eventName);
+      this.element.dispatchEvent(event);
+    };
+
+    private onSubmit = (event: Event) : boolean => {
+      const isValid = this.element.checkValidity();
+      const hasFormAction = this.element.hasAttribute('action') && this.element.hasAttribute('method');
+      const eventName = isValid ? 'validated' : 'invalidated';
+
+      if (!isValid) {
+        event.preventDefault();
+        return false;
+      }
+
+      if (!hasFormAction) {
+        this.publishEvent(eventName);
+        return false;
+      }
+
+      return true;
+    };
+
+    private addListeners = () : void => {
       this.element.setAttribute('novalidate', '');
-      this.element.addEventListener('submit', (event: Event) => {
-        if (!this.element.checkValidity()) {
-          event.preventDefault();
-        }
-      })
+      this.element.addEventListener('submit', this.onSubmit);
     };
   }
 
-  customElements.define('astroval-form', AstrovalForm);
+  if (!customElements.get('astroval-form')) {
+    customElements.define('astroval-form', AstrovalForm);
+  }
 </script>
