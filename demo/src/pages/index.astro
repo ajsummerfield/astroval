@@ -18,7 +18,7 @@ import { AstrovalForm } from '~/src';
     <AstrovalForm id="my-form">
       <div>
         <label for="name">Name</label>
-        <TextInput name="name" required={true} requiredErrorMessage='Please enter your name' />
+        <TextInput name="name" required={true} requiredErrorMessage='Please enter your name.' />
       </div>
       <div>
         <label for="role">Role</label>
@@ -32,15 +32,22 @@ import { AstrovalForm } from '~/src';
 </Layout>
 
 <script>
-  import { Astroval } from "~/src";
+  const formEl = document.querySelector<HTMLFormElement>('#my-form');
 
-  const formEl = document.querySelector<HTMLFormElement>('form#my-form');
-  const astroval = new Astroval(formEl, {
-    onValidated: () => {
-      console.log('Validated!');
-    },
-    onInvalidated: () => {
-      console.log('Invalidated!');
-    },
+  formEl?.addEventListener('invalidated', () => {
+    console.log('Invalidated !');
+  });
+
+  formEl?.addEventListener('validated', async () => {
+    console.log('Validated !');
+    // const formData = new FormData(formEl);
+    // const response = await fetch("/api/form", {
+    //   method: "POST",
+    //   body: formData,
+    // });
+
+    // const data = await response.json();
+
+    // alert(data.message);
   });
 </script>
